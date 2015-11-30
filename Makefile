@@ -19,15 +19,15 @@ else
     LFLAGS           :=
 endif
 
-all: jsrengine
+all: renginejs
 
-jsrengine: duktape.o main.o
-	$(CXX) duktape.o main.o -o jsrengine $(LFLAGS)
+renginejs: duktape.o main.o
+	$(CXX) duktape.o main.o -o renginejs $(LFLAGS)
 
-duktape.o:
+duktape.o: $(DUKTAPE_DIR)/src/duktape.c
 	$(CC) -c $(CFLAGS) $(INCLUDES) $(DEFINES) $(DUKTAPE_DIR)/src/duktape.c -o duktape.o
 
-main.o: main.cpp
+main.o: main.cpp *.h
 	$(CXX) -c $(CFLAGS) $(CXXFLAGS) $(INCLUDES) $(DEFINES)  main.cpp -o main.o
 
 clean:
